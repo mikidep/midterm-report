@@ -1,0 +1,70 @@
+\documentclass[a4paper]{article}
+\usepackage{lipsum}
+
+% PACKAGES FOR REFERENCES & BIBLIOGRAPHY
+\usepackage[colorlinks=true,linkcolor=black,anchorcolor=black,citecolor=black,filecolor=black,menucolor=black,runcolor=black,urlcolor=black]{hyperref} % Adds clickable links at references
+\usepackage[acronym]{glossaries}
+\usepackage[backend=biber, style=numeric, giveninits=true, maxcitenames=2]{biblatex} % Square brackets, citing references with numbers, citations sorted by appearance in the text and compressed
+\addbibresource{biblio.bib}
+\usepackage{cleveref}
+
+\author{Michele De Pascalis}
+\title{Midterm Report}
+
+\newacronym{itt}{ITT}{Intensional Type Theory}
+\newacronym{mltt}{MLTT}{Martin-Löf Type Theory}
+
+\begin{document}
+\maketitle
+
+\section{Preliminaries}
+
+\subsection{Type Theory}
+
+Type theory is a formal discipline that appeared in the 20th century in the mathematical niche that has today developed into computer science. In its current incarnations, a type theory is composed of some term rewriting system (most popularly some flavour of Church's \(\lambda\)-calculus), enriched with a deductive system with the aim of assigning \textit{types} to the terms.
+
+Type theory has proved to be of great use for the study of mathematics and computer science alike. Type theoretical analysis enables formal reasoning about properties of programs; The types assigned to parts of a program, themselves, witness properties of the program. If the procedure of verifying that a term can be given a certain type (called \textit{type-checking}) can be automatized, this workflow can be employed by software developers to state and ensure properties of the produced software. Not surprisingly, a lot of legacy and modern computer programming languages feature type systems inspired by some type theory.
+
+On the other hand, the tradition that birthed type theory is rooted in the disciplinary scope of logic and foundation of mathematics. Many type theories are concretely logical deductive system, and as such they are studied by modern logic. In the seventies, \textcite{MartinLoef1998} developed \gls{itt}, the first of a family of type theories that is now referred to as \gls{mltt}. Type theories in the \gls{mltt} family feature \textit{dependent types}, i.e. the possibility for types to depend on terms in their contexts, and so-called \textit{identity types}, i.e. types encoding the equality of two terms. These features allow \gls{mltt} to be used as a deductive system for constructive predicate logic.
+
+The possibility of using some flavour of \gls{mltt} as a foundation for constructive mathematics is appealing not only for logicians and computer scientists, but also for mathematicians who seek a tool to formally validate their mathematical production. In the logical interpretation of \gls{mltt}, propositions (and therefore theorems) are interpreted as types, and proofs of a proposition correspond to terms that inhabit the corresponding type. When type-checking is decidable for a variant of \gls{mltt} (for instance, it is for \gls{itt}), then a computer can be used to check that a proof for a theorem is valid, by encoding both into type theory, and then asking the type-checker.
+
+\subsection{Category Theory}
+
+Category theory is a branch of mathematics studying compositional structures called \textit{categories}. Briefly put, a category is composed of the following data:
+
+\begin{enumerate}
+	\item A collection of objects \(A, B, C, ...\);
+	\item For any two objects \(A, B\), a collection of arrows \(\hom(A, B)\);
+	\item For any object \(A\), a special arrow \(id_A : \hom(A, A)\), called the \textit{identity} on \(A\);
+	\item For any three objects \(A, B, C\) and two arrows \(f : \hom(A, B), g : \hom(B, C)\), an arrow \(f ; g : \hom(A, C)\), called the \textit{composite} of \(f\) and \(g\).
+\end{enumerate}
+
+These components have to satisfy the following additional requirements:
+
+\begin{enumerate}
+	\item associativity: for any three arrows \(A \xrightarrow{f} B \xrightarrow{g} C \xrightarrow{h} D\), \(f ; (g ; h) = (f ; g) ; h\);
+	\item unitality: for any arrow \(A \xrightarrow{f} B\), \(id_A ; f = f = f ; id_B\).
+\end{enumerate}
+
+Categories are ubiquitous in mathematics and computer science. Sets with functions form a category, as do most flavours of algebraic structures with homomorphisms, and topological spaces with transformation of the corresponding kind. In computer programming, processes with input type \(A\) and output type \(B\) can be seen as arrows from \(A\) to \(B\), and as such they form a category.
+
+\subsection{Polynomial Functors and Containers}
+
+\subsection{Inductive Principles as Initial Algebras}
+
+\section{Project Description}
+
+\subsection{Overview of known results}
+
+\subsection{Goals}
+
+\section{Current Work}
+
+\section{Future Work}
+
+\section{Abbreviations}
+\printglossary[type=\acronymtype]
+\printbibliography
+
+\end{document}
