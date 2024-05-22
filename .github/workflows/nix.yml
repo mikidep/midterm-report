@@ -18,7 +18,7 @@ jobs:
         # nix build would also work here because `todos` is the default package
         run: nix build
       - name: Upload
-        uses: actions/upload-artifacts@v4
+        uses: actions/upload-artifact@v4
         with:
           name: report
           path: result
