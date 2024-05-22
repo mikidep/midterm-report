@@ -20,5 +20,5 @@ jobs:
       - name: Upload
         uses: actions/upload-artifacts@v4
         with:
-          - name: report
-            path: result
+          name: report
+          path: result
