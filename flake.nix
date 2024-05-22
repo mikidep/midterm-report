@@ -38,6 +38,7 @@
               mfirstuc
               xfor
               datatool
+              todonotes
               ;
           })
           which

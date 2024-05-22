@@ -1,0 +1,20 @@
+name: Build PDF
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build__nix:
+    name: Build PDF
+    runs-on: ubuntu-22.04
+    steps:
+      - name: git checkout
+        uses: actions/checkout@v3
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+      - name: Build
+        # nix build would also work here because `todos` is the default package
+        run: nix build
+

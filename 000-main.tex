@@ -7,12 +7,17 @@
 \usepackage[backend=biber, style=numeric, giveninits=true, maxcitenames=2]{biblatex} % Square brackets, citing references with numbers, citations sorted by appearance in the text and compressed
 \addbibresource{biblio.bib}
 \usepackage{cleveref}
+\usepackage{todonotes}
 
 \author{Michele De Pascalis}
 \title{Midterm Report}
 
 \newacronym{itt}{ITT}{Intensional Type Theory}
 \newacronym{mltt}{MLTT}{Martin-Löf Type Theory}
+
+\makeglossaries
+
+\DeclareMathOperator{\map}{map}
 
 \begin{document}
 \maketitle
@@ -21,7 +26,7 @@
 
 \subsection{Type Theory}
 
-Type theory is a formal discipline that appeared in the 20th century in the mathematical niche that has today developed into computer science. In its current incarnations, a type theory is composed of some term rewriting system (most popularly some flavour of Church's \(\lambda\)-calculus), enriched with a deductive system with the aim of assigning \textit{types} to the terms.
+Type theory is a formal discipline that appeared in the 20th century in the mathematical niche that has today developed into computer science. In its current incarnations, a type theory is composed of some equational theory (most popularly some flavour of Church's \(\lambda\)-calculus), enriched with a deductive system with the aim of assigning \textit{types} to the terms.
 
 Type theory has proved to be of great use for the study of mathematics and computer science alike. Type theoretical analysis enables formal reasoning about properties of programs; The types assigned to parts of a program, themselves, witness properties of the program. If the procedure of verifying that a term can be given a certain type (called \textit{type-checking}) can be automatized, this workflow can be employed by software developers to state and ensure properties of the produced software. Not surprisingly, a lot of legacy and modern computer programming languages feature type systems inspired by some type theory.
 
@@ -51,6 +56,25 @@ Categories are ubiquitous in mathematics and computer science. Sets with functio
 
 \subsection{Polynomial Functors and Containers}
 
+In category theory, a \textit{functor} \(F : \mathcal C \to \mathcal D\) is a mapping between categories \(\mathcal C\) and \(\mathcal D\) that is compatible with the category structures, in the sense that objects are mapped to objects, and arrows \(A \xrightarrow{f} B\) in \(\mathcal C\) are mapped to arrows \(\map_F f : F A \to F B\) between the mapped endpoints in \(\mathcal D\), preserving identity and composition.
+
+In programming languages, mapping between types more often then not come with an implicit functorial structure. This is acknowledged by instances of the \texttt{Functor} typeclass in the Haskell standard library.
+
+In particular, user-defined composite non-recursive type declarations usually fit in a class of functors referred to as \textit{polynomial functors}. There are several overlapping formal definitions of polynomial functors, but they all stem from considering functors whose object mapping resembles a polynomial in its argument, e.g.
+
+\begin{equation}
+	\label{eqn:list-functor}
+	F X := 1 + A \times X
+\end{equation}
+
+Where operators \(+\) and \(\times\) stand for coproducts and products in the relevant category. In the category of sets, these are respectively the disjoint union and the cartesian product. In programming languages, they are respectively tagged enums (or sum types) and pairs (or product types). In Haskell parlance, the functor in def. \ref{eqn:list-functor} can be defined by:
+
+\begin{verbatim}
+  data F x = Left | Right A x 
+\end{verbatim}
+
+A second approach to formalizing non-recursive type declarations that cover the same extent in languages such as Haskell are \textit{containers}. The precise meaning of this term is also muddied by slightly misaligned conventions in the literature \todo{cite}
+
 \subsection{Inductive Principles as Initial Algebras}
 
 \section{Project Description}
@@ -64,7 +88,7 @@ Categories are ubiquitous in mathematics and computer science. Sets with functio
 \section{Future Work}
 
 \section{Abbreviations}
-\printglossary[type=\acronymtype]
+\printacronyms
 \printbibliography
 
 \end{document}
