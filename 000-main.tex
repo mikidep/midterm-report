@@ -8,6 +8,7 @@
 \addbibresource{biblio.bib}
 \usepackage{cleveref}
 \usepackage{todonotes}
+\usepackage{amsfonts}
 
 \author{Michele De Pascalis}
 \title{Midterm Report}
@@ -91,7 +92,15 @@ To further complicate the picture, \textcite{Gambino2009} took a step further an
 
 \subsection{Inductive Principles as Initial Algebras}
 
+In both logic and computer science, it is common to encounter definitions given by recursion, as well as proofs given by induction. An example of a recursive definition is the following definition of a function giving the parity of a natural number:
 
+\begin{verbatim}
+isEven : Nat -> Bool
+isEven zero = true
+isEven (succ n) = not (isEven n)
+\end{verbatim}
+
+A recursion principle for the type \(\mathbb N\) of natural numbers can be stated as follows: ``Given any type \(A\), giving a function \(f : \mathbb N \to A\) amounts precisely to giving \(z : A\) and \(s : A \to A\), such that \(z = f(0)\) and \(\forall n : \mathbb N . s(f(n)) = f (n + 1)\)''.
 
 \section{Project Description}
 

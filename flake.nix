@@ -39,6 +39,7 @@
               xfor
               datatool
               todonotes
+              amsfonts
               ;
           })
           which
