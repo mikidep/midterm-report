@@ -85,9 +85,13 @@ Where operators \(+\) and \(\times\) stand for coproducts and products in the re
   data F x = Left | Right A x 
 \end{verbatim}
 
-The apparent syntactic structure of polynomial functors motivates the search for a more synthetic definition that fully and faithfully captures them. One approach to this is the study of \textit{containers} \cite{Abbott2003}\cite{Abbott2005}\cite{Altenkirch2015}(indexed version), which are then associated to endofunctors on \Set{} or \Set{}-slices. Note that these definitions are not \textit{per se} limited to \Set{}, since they are given and validated in a \gls{mltt}; however, due to the difficulty of precisely identifying the class of structures that \gls{mltt} describes, it is not immediate to understand how general they are.
+The apparent syntactic structure of polynomial functors motivates the search for a more synthetic definition that fully and faithfully captures them. One approach to this is the study of \textit{containers} \cite{Abbott2003}\cite{Abbott2005}\cite{Altenkirch2015}(indexed version), which are then associated to endofunctors on \Set{} or \Set{}-slices. Note that these definitions are not \textit{per se} limited to \Set{}, since they are given and validated in a \gls{mltt}; however, due to the difficulty of precisely identifying the class of structures that \gls{mltt} describes\footnote{For an informal discussion, see \cite{Voevodsky2015}.}, it is not immediate to understand how general they are. Analogous issues arise in trying to understand to what flavors of polynomial functors containers correspond.
+
+To further complicate the picture, \textcite{Gambino2009} took a step further and generalised this syntactic approach to syntaxes defined in a general \gls{lccc}, yielding a theory covering indexed polynomial functors in \gls{lccc} slices similarly to how \cite{Altenkirch2015} cover indexed polynomial functors in \Set{}-slices. Again, it is not clear to what extent these theories overlap.
 
 \subsection{Inductive Principles as Initial Algebras}
+
+
 
 \section{Project Description}
 
