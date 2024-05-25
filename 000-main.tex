@@ -14,10 +14,13 @@
 
 \newacronym{itt}{ITT}{Intensional Type Theory}
 \newacronym{mltt}{MLTT}{Martin-Löf Type Theory}
+\newacronym{lccc}{LCCC}{Locally Cartesian Closed Category}
 
 \makeglossaries
 
 \DeclareMathOperator{\map}{map}
+\newcommand{\catname}[1]{{\normalfont\textbf{#1}}}
+\newcommand{\Set}{\catname{Set}}
 
 \begin{document}
 \maketitle
@@ -29,7 +32,7 @@
 \begin{enumerate}
 
 	\item Tentative title: Inductive principles in Intensional Type Theory
-	\item Constructive contructions (haha) of W-types
+	\item Constructive constructions (haha) of W-types
 	\item Polynomials are justified to try to model HITs algebraically rather than homotopically.
 \end{enumerate}
 
@@ -41,11 +44,11 @@ Type theory has proved to be of great use for the study of mathematics and compu
 
 On the other hand, the tradition that birthed type theory is rooted in the disciplinary scope of logic and foundation of mathematics. Many type theories are concretely logical deductive system, and as such they are studied by modern logic. In the seventies, \textcite{MartinLoef1998} developed \gls{itt}, the first of a family of type theories that is now referred to as \gls{mltt}. Type theories in the \gls{mltt} family feature \textit{dependent types}, i.e. the possibility for types to depend on terms in their contexts, and so-called \textit{identity types}, i.e. types encoding the equality of two terms. These features allow \gls{mltt} to be used as a deductive system for constructive predicate logic.
 
-The possibility of using some flavour of \gls{mltt} as a foundation for constructive mathematics is appealing not only for logicians and computer scientists, but also for mathematicians who seek a tool to formally validate their mathematical production. In the logical interpretation of \gls{mltt}, propositions (and therefore theorems) are interpreted as types, and proofs of a proposition correspond to terms that inhabit the corresponding type. When type-checking is decidable for a variant of \gls{mltt} (for instance, it is for \gls{itt}\todo{cite}), then a computer can be used to check that a proof for a theorem is valid, by encoding both into type theory, and then asking the type-checker. A notable example of such an automated system for formalizing mathematics is the proof assistant Agda\todo{cite}.
+The possibility of using some flavor of \gls{mltt} as a foundation for constructive mathematics is appealing not only for logicians and computer scientists, but also for mathematicians who seek a tool to formally validate their mathematical production. In the logical interpretation of \gls{mltt}, propositions (and therefore theorems) are interpreted as types, and proofs of a proposition correspond to terms that inhabit the corresponding type. When type-checking is decidable for a variant of \gls{mltt} (for instance, it is for \gls{itt}\todo{cite}), then a computer can be used to check that a proof for a theorem is valid, by encoding both into type theory, and then asking the type-checker. A notable example of such an automated system for formalizing mathematics is the proof assistant Agda\todo{cite}.
 
 \subsection{Category Theory}
 
-Category theory (see \cite{Riehl2017} for a reference) is a branch of mathematics studying compositional structures called \textit{categories}\todo{cite}. Briefly put, a category is composed of the following data:
+Category theory (see \cite{Riehl2017} for a reference) is a branch of mathematics studying compositional structures called \textit{categories}. Briefly put, a category is composed of the following data:
 
 \begin{enumerate}
 	\item A collection of objects \(A, B, C, ...\);
@@ -57,11 +60,11 @@ Category theory (see \cite{Riehl2017} for a reference) is a branch of mathematic
 These components have to satisfy the following additional requirements:
 
 \begin{enumerate}
-	\item associativity: for any three arrows \(A \xrightarrow{f} B \xrightarrow{g} C \xrightarrow{h} D\), \(f ; (g ; h) = (f ; g) ; h\);
-	\item unitality: for any arrow \(A \xrightarrow{f} B\), \(id_A ; f = f = f ; id_B\).
+	\item Associativity: for any three arrows \(A \xrightarrow{f} B \xrightarrow{g} C \xrightarrow{h} D\), \(f ; (g ; h) = (f ; g) ; h\);
+	\item Unitality: for any arrow \(A \xrightarrow{f} B\), \(id_A ; f = f = f ; id_B\).
 \end{enumerate}
 
-Categories are ubiquitous in mathematics and computer science (cf. \cite{Walters1992}). Sets with functions form a category, as do most flavours of algebraic structures with homomorphisms, and topological spaces with transformation of the corresponding kind. In computer programming, processes with input type \(A\) and output type \(B\) can be seen as arrows from \(A\) to \(B\), and as such they form a category.
+Categories are ubiquitous in mathematics and computer science (cf. \cite{Walters1992}). Sets with functions form a category (notated as \Set{}), as do most flavors of algebraic structures with homomorphisms, and topological spaces with transformation of the corresponding kind. In computer programming, processes with input type \(A\) and output type \(B\) can be seen as arrows from \(A\) to \(B\), and as such they form a category.
 
 \subsection{Polynomial Functors and Containers}
 
@@ -69,7 +72,7 @@ In category theory, a \textit{functor} \(F : \mathcal C \to \mathcal D\) is a ma
 
 In programming languages, mapping between types more often then not come with an implicit functorial structure. This is acknowledged by instances of the \texttt{Functor} typeclass in the Haskell standard library.
 
-In particular, user-defined composite non-recursive type declarations usually fit in a class of functors referred to as \textit{polynomial functors}. There are several overlapping formal definitions of polynomial functors, but they all stem from considering functors whose object mapping resembles a polynomial in its argument, e.g.
+In particular, user-defined composite non-recursive type declarations usually fit in a class of functors referred to as \textit{polynomial functors}. There are several overlapping formal definitions of polynomial functors\footnote{In \cite{Goldblatt2001} they appear defined as \Set{}-endofunctors ``constructed from constant functors and [the identity functor] by finitely many applications of products, coproducts and powers''. \textcite{Moerdijk2000} give a definition in any pretopos; \textcite{Gambino2004} give a definition in any \gls{lccc}; \textcite{Gambino2009} give a definition for indexed polynomial functors also in a \gls{lccc}.}, but they all stem from considering functors whose object mapping resembles a polynomial in its argument, e.g.
 
 \begin{equation}
 	\label{eqn:list-functor}
@@ -82,7 +85,7 @@ Where operators \(+\) and \(\times\) stand for coproducts and products in the re
   data F x = Left | Right A x 
 \end{verbatim}
 
-A second approach to formalizing non-recursive type declarations that cover the same extent in languages such as Haskell are \textit{containers}. The precise meaning of this term is also muddied by slightly misaligned conventions in the literature \todo{cite}
+The apparent syntactic structure of polynomial functors motivates the search for a more synthetic definition that fully and faithfully captures them. One approach to this is the study of \textit{containers} \cite{Abbott2003}\cite{Abbott2005}\cite{Altenkirch2015}(indexed version), which are then associated to endofunctors on \Set{} or \Set{}-slices. Note that these definitions are not \textit{per se} limited to \Set{}, since they are given and validated in a \gls{mltt}; however, due to the difficulty of precisely identifying the class of structures that \gls{mltt} describes, it is not immediate to understand how general they are.
 
 \subsection{Inductive Principles as Initial Algebras}
 
