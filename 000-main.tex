@@ -2,7 +2,7 @@
 \usepackage{lipsum}
 
 % PACKAGES FOR REFERENCES & BIBLIOGRAPHY
-\usepackage[colorlinks=true,linkcolor=black,anchorcolor=black,citecolor=black,filecolor=black,menucolor=black,runcolor=black,urlcolor=black]{hyperref} % Adds clickable links at references
+\usepackage[colorlinks=true,linkcolor=black,anchorcolor=black,citecolor=black,filecolor=black,menucolor=black,runcolor=black,urlcolor=blue]{hyperref} % Adds clickable links at references
 \usepackage[acronym]{glossaries}
 \usepackage[backend=biber, style=numeric, giveninits=true, maxcitenames=2]{biblatex} % Square brackets, citing references with numbers, citations sorted by appearance in the text and compressed
 \addbibresource{biblio.bib}
@@ -92,15 +92,9 @@ To further complicate the picture, \textcite{Gambino2009} took a step further an
 
 \subsection{Inductive Principles as Initial Algebras}
 
-In both logic and computer science, it is common to encounter definitions given by recursion, as well as proofs given by induction. An example of a recursive definition is the following definition of a function giving the parity of a natural number:
+In both logic and computer science, it is common to encounter definitions given by recursion, as well as proofs given by induction. As illustrated in \cite[Section 10.5]{Awodey2010}, data types with recursive principles can be described categorically as \textit{initial algebras} for an appropriate endofunctor.
 
-\begin{verbatim}
-isEven : Nat -> Bool
-isEven zero = true
-isEven (succ n) = not (isEven n)
-\end{verbatim}
-
-A recursion principle for the type \(\mathbb N\) of natural numbers can be stated as follows: ``Given any type \(A\), giving a function \(f : \mathbb N \to A\) amounts precisely to giving \(z : A\) and \(s : A \to A\), such that \(z = f(0)\) and \(\forall n : \mathbb N . s(f(n)) = f (n + 1)\)''.
+The existence of such initial algebra for a given endofunctor is not a trivial problem. For a broad class of endofunctors, under broad assumptions, there is a classical construction due to \textcite{Adamek1974}\footnote{The same construction for \Set{}-endofunctors appeared already in \textcite{Pohlova1973}, as noted in \href{https://ncatlab.org/nlab/show/Ad\%C3\%A1mek\%27s+fixed+point+theorem}{this nLab page}.}; however this construction is ironically non-constructive, in the sense that it employs reasoning schemes that are challenged by constructive mathematicians \cite[Theorem 1.1, discussion]{Pitts2021}. Aside from philosophical quarrels, this poses a problem for computer scientists, as when exhibiting an initial algebra non-constructively, it does not come with computational meaning. In other words, one cannot use it to write programs.
 
 \section{Project Description}
 
