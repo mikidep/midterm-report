@@ -9,7 +9,7 @@
 \usepackage{cleveref}
 \usepackage{todonotes}
 \usepackage{amsfonts}
-
+\usepackage{listings}
 \author{Michele De Pascalis}
 \title{Midterm Report}
 
@@ -25,6 +25,8 @@
 \DeclareMathOperator{\map}{map}
 \newcommand{\catname}[1]{{\normalfont\textbf{#1}}}
 \newcommand{\Set}{\catname{Set}}
+
+\lstset{basicstyle=\ttfamily\small}
 
 \begin{document}
 \maketitle
@@ -85,9 +87,9 @@ In particular, user-defined composite non-recursive type declarations usually fi
 
 Where operators \(+\) and \(\times\) stand for coproducts and products in the relevant category. In the category of sets, these are respectively the disjoint union and the cartesian product. In programming languages, they are respectively tagged enums (or sum types) and pairs (or product types). In Haskell parlance, the functor in def. \ref{eqn:list-functor} can be defined by:
 
-\begin{verbatim}
+\begin{lstlisting}
   data F x = Left | Right A x 
-\end{verbatim}
+\end{lstlisting}
 
 The apparent syntactic structure of polynomial functors motivates the search for a more synthetic definition that fully and faithfully captures them. One approach to this is the study of \textit{containers} \cite{Abbott2003}\cite{Abbott2005}\cite{Altenkirch2015}(indexed version), which are then associated to endofunctors on \Set{} or \Set{}-slices. Note that these definitions are not \textit{per se} limited to \Set{}, since they are given and validated in a \gls{mltt}; however, due to the difficulty of precisely identifying the class of structures that \gls{mltt} describes\footnote{For an informal discussion, see \cite{Voevodsky2015}.}, it is not immediate to understand how general they are. Analogous issues arise in trying to understand to what flavors of polynomial functors containers correspond.
 
@@ -109,18 +111,55 @@ This set forth a research program where models for \gls{itt} were sought in the 
 
 \section{Project Description}
 
-It is still not clear how \glspl{hit} interact with W-types.
+It is still not clear how \glspl{hit} interact with inductive definitions. One would like to be able to construct or axiomatize initial algebras for endofunctors involving \glspl{hit}. Consider the two similar definitions in Figure \ref{fig:trdefs}:
 
-\todo[inline]{Initial algebra constructions in the literature do not extend to HoTT models?}
-\todo[inline]{Talk with Niccolò.}
-\todo[inline]{Cite Philipp?}
-\todo[inline]{Aim to use algebraic methods to characterise a broad class of HITs for which initial algebras can be constructed in a constructive metatheory or ideally internally. Otherwise relate the constructibility of certain initial algebras with non-constructive principles.}
+\begin{figure}
+	\caption{Two definitions for unordered binary trees.}
+	\label{fig:trdefs}
+	\centering
+	\begin{minipage}{.45\textwidth}
+		\begin{lstlisting}
+data BT1 : Type where
+leaf : BT1
+branch : BT1 -> BT1 -> BT1
+branch-sym : (s t : BT1)
+  -> branch s t == branch t s
+isSet-BT1 :
+  (s t : BT1)
+  (p q : s == t)
+  -> p == q
+\end{lstlisting}
+	\end{minipage}
+	\qquad
+	\begin{minipage}{.45\textwidth}
+		\begin{lstlisting}
+data BTF (X : Type) where
+leaf : BTF X
+branch : X -> X -> BTF X
+branch-sym : (x y : X)
+  -> branch x y == branch y x
+isset-BTF-X :
+  (s t : BTF X)
+  (p q : s == t)
+  -> p == q
 
-\section{Current Work}
+data BT2 : Type where
+  fold : BTF BT2 -> BT2
+\end{lstlisting}
+	\end{minipage}
+\end{figure}
 
-\todo[inline]{Synthetic characterization of monoid structures on indexed containers.}
 
-\section{Future Work}
+\todo[inline]{initial algebra constructions in the literature do not extend to hott models? they do for one sorted polynomials, see \cite{Moerdijk2000}}
+\todo[inline]{talk with niccolò.}
+\todo[inline]{cite philipp?}
+\todo[inline]{aim to use algebraic methods to characterise a broad class of hits for which initial algebras can be constructed in a constructive metatheory or ideally internally. otherwise relate the constructibility of certain initial algebras with non-constructive principles.}
+
+\section{Current work}
+
+\todo[inline]{synthetic characterization of monoid structures on indexed containers.}
+
+\section{Future work}
 
 
 
