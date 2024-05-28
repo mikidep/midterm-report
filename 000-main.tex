@@ -34,15 +34,6 @@
 
 \section{Preliminaries}
 
-\section*{DELETE ME}
-
-\begin{enumerate}
-
-	\item Tentative title: Inductive principles in Intensional Type Theory
-	\item Constructive constructions (haha) of W-types
-	\item Polynomials are justified to try to model HITs algebraically rather than homotopically.
-\end{enumerate}
-
 \subsection{Type Theory}
 
 Type theory is a formal discipline that appeared in the 20th century in the mathematical niche that has today developed into computer science. In its current incarnations, a type theory is composed of some equational theory (most popularly some flavour of Church's \(\lambda\)-calculus), enriched with a deductive system with the aim of assigning \textit{types} to the terms.
@@ -79,7 +70,7 @@ In category theory, a \textit{functor} \(F : \mathcal C \to \mathcal D\) is a ma
 
 In programming languages, mapping between types more often then not come with an implicit functorial structure. This is acknowledged by instances of the \texttt{Functor} typeclass in the Haskell standard library.
 
-In particular, user-defined composite non-recursive type declarations usually fit in a class of functors referred to as \textit{polynomial functors}. There are several overlapping formal definitions of polynomial functors\footnote{In \cite{Goldblatt2001} they appear defined as \Set{}-endofunctors ``constructed from constant functors and [the identity functor] by finitely many applications of products, coproducts and powers''. \textcite{Moerdijk2000} give a definition in any pretopos; \textcite{Gambino2004} give a definition in any \gls{lccc}; \textcite{Gambino2009} give a definition for indexed polynomial functors also in a \gls{lccc}.}, but they all stem from considering functors whose object mapping resembles a polynomial in its argument, e.g.
+In particular, user-defined composite non-recursive type declarations usually fit in a class of functors referred to as \textit{polynomial functors}. There are several overlapping formal definitions of polynomial functors\footnote{In \textcite{Goldblatt2001} they appear defined as \Set{}-endofunctors ``constructed from constant functors and [the identity functor] by finitely many applications of products, coproducts and powers''. \textcite{Moerdijk2000} give a definition in any pretopos; \textcite{Gambino2004} give a definition in any \gls{lccc}; \textcite{Gambino2009} give a definition for indexed polynomial functors also in a \gls{lccc}.}, but they all stem from considering functors whose object mapping resembles a polynomial in its argument, e.g.
 
 \begin{equation}
 	\label{eqn:list-functor}
@@ -165,23 +156,17 @@ Semantics for such definitions are not immediately reconduced to previous resear
 
 The second definition is instead given by first defining an endofunctor, \texttt{BTF}, and then defining \texttt{(BT2, fold)} to be the initial algebra for \texttt{BTF}. By the construction in \cite{Weide2019}, again when \texttt{A} is finite, the two definitions are equivalent. Note that in this case, constructions like \cite{Moerdijk2000} and \cite{Pitts2021} fail to apply, since \texttt{BTF} is not polynomial.
 
+Among the efforts to construct or give semantics for \glspl{hit} we must surely note the previously mentioned work by \textcite{Weide2019}, which is limited by finitarity and homotopy level, and \textcite{Fiore2022}, whose construction is given for a broader class of definitions, but involves a non-constructive choice-adjacent principle: this renders the construction inconclusive for computational purposes.
 
-
-
-
-
-\todo[inline]{If I understand correctly BT1 and BT2 are the same due to \textcite{Weide2019}.}
-\todo[inline]{talk with niccolò.}
-\todo[inline]{cite philipp?}
-\todo[inline]{aim to use algebraic methods to characterise a broad class of hits for which initial algebras can be constructed in a constructive metatheory or ideally internally. otherwise relate the constructibility of certain initial algebras with non-constructive principles.}
+Our intent is to investigate constructability of \glsentrylongpl{hit} with the aim of providing constructions for a broader class of them, or relate their admission in \glsentrylong{hott} to non-constructive principles.
 
 \section{Current work}
 
-\todo[inline]{synthetic characterization of monoid structures on indexed containers.}
+\cite{Uustalu2017} gave a syntactic characterisation of monad structures on polynomial endofunctors as generated from containers in \cite{Abbott2005}. We are currently studying how this extends to indexed containers as defined in \cite{Altenkirch2015}, whose monoidal structure has not yet been studied extensively. We suspect that understanding such structures can lead to insight over why, for certain \gls{hit}-defined endofunctors, the admission of initial algebras seems to be associated with non-constructive principles. This is due to the fact that indexed W-types, the inductive principles arising from indexed containers, model multi-sorted term algebras.
 
 \section{Future work}
 
-\todo[inline]{Idea: indexed version of \textcite{Weide2019}?}
+The scope of \cite{Weide2019} is limited to signatures based on polynomials in the style of \cite{Goldblatt2001}: it begs for a generalization to allow for indexed (finitary) polynomials, as defined in \cite{Altenkirch2015}.
 
 \printacronyms
 \printbibliography
