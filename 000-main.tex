@@ -40,7 +40,7 @@ Type theory is a formal discipline that appeared in the 20th century in the math
 
 Type theory has proved to be of great use for the study of mathematics and computer science alike. Type theoretical analysis enables formal reasoning about properties of programs; The types assigned to parts of a program, themselves, witness properties of the program. If the procedure of verifying that a term can be given a certain type (called \textit{type-checking}) can be automatized, this workflow can be employed by software developers to state and ensure properties of the produced software. Not surprisingly, a lot of legacy and modern computer programming languages feature type systems inspired by some type theory.
 
-On the other hand, the tradition that birthed type theory is rooted in the disciplinary scope of logic and foundation of mathematics. Many type theories are concretely logical deductive system, and as such they are studied by modern logic. In the seventies, \textcite{MartinLoef1998} developed \gls{itt}, the first of a family of type theories that is now referred to as \gls{mltt}. Type theories in the \gls{mltt} family feature \textit{dependent types}, i.e. the possibility for types to depend on terms in their contexts, and so-called \textit{identity types}, i.e. types encoding the equality of two terms. These features allow \gls{mltt} to be used as a deductive system for constructive predicate logic.
+On the other hand, the tradition that birthed type theory is rooted in the disciplinary scope of logic and foundation of mathematics. Many type theories are concretely logical deductive systems, and as such they are studied by modern logic. In the seventies, \textcite{MartinLoef1998} developed \gls{itt}, the first of a family of type theories that is now referred to as \gls{mltt}. Type theories in the \gls{mltt} family feature \textit{dependent types}, i.e. the possibility for types to depend on terms in their contexts, and so-called \textit{identity types}, i.e. types encoding the equality of two terms. These features allow \gls{mltt} to be used as a deductive system for constructive predicate logic.
 
 The possibility of using some flavor of \gls{mltt} as a foundation for constructive mathematics is appealing not only for logicians and computer scientists, but also for mathematicians who seek a tool to formally validate their mathematical production. In the logical interpretation of \gls{mltt}, propositions (and therefore theorems) are interpreted as types, and proofs of a proposition correspond to terms that inhabit the corresponding type. When type-checking is decidable for a variant of \gls{mltt} (for instance, it is for \gls{itt}, see \textcite{Hofmann1995}), then a computer can be used to check that a proof for a theorem is valid, by encoding both into type theory, and then asking the type-checker. A notable example of such an automated system for formalizing mathematics is the proof assistant Agda \cite{Norell2009}.
 
@@ -68,7 +68,7 @@ Categories are ubiquitous in mathematics and computer science (cf. \cite{Walters
 
 In category theory, a \textit{functor} \(F : \mathcal C \to \mathcal D\) is a mapping between categories \(\mathcal C\) and \(\mathcal D\) that is compatible with the category structures, in the sense that objects are mapped to objects, and arrows \(A \xrightarrow{f} B\) in \(\mathcal C\) are mapped to arrows \(\map_F f : F A \to F B\) between the mapped endpoints in \(\mathcal D\), preserving identity and composition.
 
-In programming languages, mapping between types more often then not come with an implicit functorial structure. This is acknowledged by instances of the \texttt{Functor} typeclass in the Haskell standard library.
+In programming languages, mappings between types more often than not come with an implicit functorial structure. This is acknowledged by instances of the \texttt{Functor} typeclass in the Haskell standard library.
 
 In particular, user-defined composite non-recursive type declarations usually fit in a class of functors referred to as \textit{polynomial functors}. There are several overlapping formal definitions of polynomial functors\footnote{In \textcite{Goldblatt2001} they appear defined as \Set{}-endofunctors ``constructed from constant functors and [the identity functor] by finitely many applications of products, coproducts and powers''. \textcite{Moerdijk2000} give a definition in any pretopos; \textcite{Gambino2004} give a definition in any \gls{lccc}; \textcite{Gambino2009} give a definition for indexed polynomial functors also in a \gls{lccc}.}, but they all stem from considering functors whose object mapping resembles a polynomial in its argument, e.g.
 
@@ -77,7 +77,7 @@ In particular, user-defined composite non-recursive type declarations usually fi
 	F X := 1 + A \times X
 \end{equation}
 
-Where operators \(+\) and \(\times\) stand for coproducts and products in the relevant category. In the category of sets, these are respectively the disjoint union and the cartesian product. In programming languages, they are respectively tagged enums (or sum types) and pairs (or product types). In Haskell parlance, the functor in def. \ref{eqn:list-functor} can be defined by:
+\noindent where operators \(+\) and \(\times\) stand for coproducts and products in the relevant category. In the category of sets, these are respectively the disjoint union and the cartesian product. In programming languages, they are respectively tagged enums (or sum types) and pairs (or product types). In Haskell parlance, the functor in def. \ref{eqn:list-functor} can be defined by:
 
 \begin{lstlisting}
   data F x = Left | Right A x 
@@ -97,7 +97,7 @@ However, inductive definitions are useful in practice, so to different extents t
 
 \subsection{Homotopy Type Theory}
 
-\Gls{mltt} was presented in \cite{MartinLoef1998} as a candidate foundation for constructive mathematics, as an alternative to Zermelo–Fraenkel set theory (see \cite[Introduction]{MartinLoef1998}), and its soundness proof was given exhibiting the syntactic model of the theory, in particular a set-theoretical model. \Gls{mltt} was presented as a constructive set theory (see \cite{Nordstroem1990}), despite its inability to internally assess a principle known as \gls{uip}, the lack of which makes for weaker pattern matching (see \textcite{Cockx2016}). It became evident that this was not just a technical shortcoming, but rather an unforseen degree of freedom, when \textcite{Hofmann1998} presented the groupoid model of \gls{itt}, ``The first construction of a model in which identity types are non-trivial''\footnote{\url{https://homotopytypetheory.org/references/hofmann-streicher-the-groupoid-interpretation-of-type-theory/}}.
+\Gls{mltt} was presented in \cite{MartinLoef1998} as a candidate foundation for constructive mathematics, as an alternative to Zermelo–Fraenkel set theory (see \cite[Introduction]{MartinLoef1998}), and its soundness proof was given exhibiting the syntactic model of the theory, in particular a set-theoretical model. \Gls{mltt} was presented as a constructive set theory (see \cite{Nordstroem1990}), despite its inability to internally assess a principle known as \gls{uip}, the lack of which makes for weaker pattern matching (see \textcite{Cockx2016}). It became evident that this was not just a technical shortcoming, but rather an unforeseen degree of freedom, when \textcite{Hofmann1998} presented the groupoid model of \gls{itt}, ``The first construction of a model in which identity types are non-trivial''\footnote{\url{https://homotopytypetheory.org/references/hofmann-streicher-the-groupoid-interpretation-of-type-theory/}}.
 
 This set forth a research program where models for \gls{itt} were sought in the scope of homotopy theory. This involved interpreting types as homotopy types, taking identity types no longer as being inhabited by equalities between objects but by paths between points, and enriching the type theory with novel constructions called \glspl{hit}, which axiomatize certain non-discrete homotopy types. The novel interpretation of \gls{itt} was called \gls{hott}, its foundations are laid in the ``HoTT Book'' \cite{UnivalentFoundationsProgram2013}.
 
@@ -144,7 +144,7 @@ isset-BTF-X :
   -> p == q
 
 data BT2 : Type where
-  fold : BTF BT2 -> BT2
+  inj : BTF BT2 -> BT2
 \end{lstlisting}
 	\end{minipage}
 \end{figure}
@@ -154,7 +154,7 @@ Definition \ref{lst:hit} is an example of \glsentrylong{hit}: it features not on
 
 Semantics for such definitions are not immediately reconducted to previous research on W-types: \textcite{Weide2019} construct Set-truncated \glspl{hit} generated by finitary signatures, assuming the availability of quotients and propositional truncation. Def. \ref{lst:hit} is finitary if and only if \texttt{A} is a finite type. In Section 8, they point out the challenges in performing a similar task in the presence of non finitary constructors.
 
-The second definition is instead given by first defining an endofunctor, \texttt{BTF}, and then defining \texttt{(BT2, fold)} to be the initial algebra for \texttt{BTF}. By the construction in \cite{Weide2019}, again when \texttt{A} is finite, the two definitions are equivalent. Note that in this case, constructions like \cite{Moerdijk2000} and \cite{Pitts2021} fail to apply, since \texttt{BTF} is not polynomial.
+The second definition is instead given by first defining an endofunctor, \texttt{BTF}, and then defining \texttt{(BT2, inj)} to be the initial algebra for \texttt{BTF}. By the construction in \cite{Weide2019}, again when \texttt{A} is finite, the two definitions are equivalent. Note that in this case, constructions like \cite{Moerdijk2000} and \cite{Pitts2021} fail to apply, since \texttt{BTF} is not polynomial.
 
 Among the efforts to construct or give semantics for \glspl{hit} we must surely note the previously mentioned work by \textcite{Weide2019}, which is limited by finitarity and homotopy level, and \textcite{Fiore2022}, whose construction is given for a broader class of definitions, but involves a non-constructive choice-adjacent principle: this renders the construction inconclusive for computational purposes.
 
