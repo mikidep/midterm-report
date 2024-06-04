@@ -28,19 +28,20 @@
 \newcommand{\Set}{\catname{Set}}
 
 \lstset{basicstyle=\ttfamily\small}
+\setuptodonotes{inline}
 
 \begin{document}
 \maketitle
 
 \section*{Abstract}
 
-\todo[inline]{ABSTRACT}
+\todo{ABSTRACT}
 
-\section{Preliminaries}
+\section{Introduction}
 
-\todo[inline]{Cut this down.}
+\subsection{Background and related works}
 
-\subsection{Type Theory}
+\subsubsection{Type Theory}
 
 Type theory is a formal discipline that appeared in the 20th century in the mathematical niche that has today developed into computer science. In its current incarnations, a type theory is composed of some equational theory (most popularly some flavour of Church's \(\lambda\)-calculus), enriched with a deductive system with the aim of assigning \textit{types} to the terms.
 
@@ -50,31 +51,11 @@ On the other hand, the tradition that birthed type theory is rooted in the disci
 
 The possibility of using some flavor of \gls{mltt} as a foundation for constructive mathematics is appealing not only for logicians and computer scientists, but also for mathematicians who seek a tool to formally validate their mathematical production. In the logical interpretation of \gls{mltt}, propositions (and therefore theorems) are interpreted as types, and proofs of a proposition correspond to terms that inhabit the corresponding type. When type-checking is decidable for a variant of \gls{mltt} (for instance, it is for \gls{itt}, see \textcite{Hofmann1995}), then a computer can be used to check that a proof for a theorem is valid, by encoding both into type theory, and then asking the type-checker. A notable example of such an automated system for formalizing mathematics is the proof assistant Agda \cite{Norell2009}.
 
-\subsection{Category Theory}
+\subsubsection{Category Theory}
 
-Category theory (see \cite{Riehl2017} for a reference) is a branch of mathematics studying compositional structures called \textit{categories}. Briefly put, a category is composed of the following data:
+Category theory (see \cite{Riehl2017} for a reference) is a branch of mathematics studying compositional structures called \textit{categories}. Categories are ubiquitous in mathematics and computer science (cf. \cite{Walters1992}). Sets with functions form a category (notated as \Set{}), as do most flavors of algebraic structures with homomorphisms, and topological spaces with transformation of the corresponding kind. In computer programming, processes with input type \(A\) and output type \(B\) can be seen as arrows from \(A\) to \(B\), and as such they form a category.
 
-\begin{enumerate}
-	\item A collection of objects \(A, B, C, ...\);
-	\item For any two objects \(A, B\), a collection of arrows \(\hom(A, B)\);
-	\item For any object \(A\), a special arrow \(id_A : \hom(A, A)\), called the \textit{identity} on \(A\);
-	\item For any three objects \(A, B, C\) and two arrows \(f : \hom(A, B), g : \hom(B, C)\), an arrow \(f ; g : \hom(A, C)\), called the \textit{composite} of \(f\) and \(g\).
-\end{enumerate}
-
-These components have to satisfy the following additional requirements:
-
-\begin{enumerate}
-	\item Associativity: for any three arrows \(A \xrightarrow{f} B \xrightarrow{g} C \xrightarrow{h} D\), \(f ; (g ; h) = (f ; g) ; h\);
-	\item Unitality: for any arrow \(A \xrightarrow{f} B\), \(id_A ; f = f = f ; id_B\).
-\end{enumerate}
-
-Categories are ubiquitous in mathematics and computer science (cf. \cite{Walters1992}). Sets with functions form a category (notated as \Set{}), as do most flavors of algebraic structures with homomorphisms, and topological spaces with transformation of the corresponding kind. In computer programming, processes with input type \(A\) and output type \(B\) can be seen as arrows from \(A\) to \(B\), and as such they form a category.
-
-\subsection{Polynomial Functors and Containers}
-
-In category theory, a \textit{functor} \(F : \mathcal C \to \mathcal D\) is a mapping between categories \(\mathcal C\) and \(\mathcal D\) that is compatible with the category structures, in the sense that objects are mapped to objects, and arrows \(A \xrightarrow{f} B\) in \(\mathcal C\) are mapped to arrows \(\map_F f : F A \to F B\) between the mapped endpoints in \(\mathcal D\), preserving identity and composition.
-
-In programming languages, mappings between types more often than not come with an implicit functorial structure. This is acknowledged by instances of the \texttt{Functor} typeclass in the Haskell standard library.
+In category theory, a \textit{functor} is a mapping between categories and that is compatible with the category structures. In programming languages, mappings between types more often than not come with an implicit functorial structure. This is acknowledged by instances of the \texttt{Functor} typeclass in the Haskell standard library.
 
 In particular, user-defined composite non-recursive type declarations usually fit in a class of functors referred to as \textit{polynomial functors}. There are several overlapping formal definitions of polynomial functors\footnote{In \textcite{Goldblatt2001} they appear defined as \Set{}-endofunctors ``constructed from constant functors and [the identity functor] by finitely many applications of products, coproducts and powers''. \textcite{Moerdijk2000} give a definition in any pretopos; \textcite{Gambino2004} give a definition in any \gls{lccc}; \textcite{Gambino2009} give a definition for indexed polynomial functors also in a \gls{lccc}.}, but they all stem from considering functors whose object mapping resembles a polynomial in its argument, e.g.
 
@@ -93,7 +74,7 @@ The apparent syntactic structure of polynomial functors motivates the search for
 
 To further complicate the picture, \textcite{Gambino2009} took a step further and generalised this syntactic approach to syntaxes defined in a general \gls{lccc}, yielding a theory covering indexed polynomial functors in \gls{lccc} slices similarly to how \cite{Altenkirch2015} cover indexed polynomial functors in \Set{}-slices. Again, it is not clear to what extent these theories overlap.
 
-\subsection{Inductive Principles as Initial Algebras}
+\subsubsection{Inductive Principles as Initial Algebras}
 
 In both logic and computer science, it is common to encounter definitions given by recursion, as well as proofs given by induction. As illustrated in \cite[Section 10.5]{Awodey2010}, data types with recursive principles can be described categorically as \textit{initial algebras} for an appropriate endofunctor.
 
@@ -101,15 +82,26 @@ The existence of such initial algebra for a given endofunctor is not a trivial p
 
 However, inductive definitions are useful in practice, so to different extents they are axiomatized in several type theories. In \gls{mltt}, this is done by the rules presenting so-called \textit{W-types}, i.e. types of well-founded trees\footnote{The fact that the 'W' stands for ``well-founded'' is not well documented, but according to \href{https://mathoverflow.net/questions/402435/why-are-w-types-called-w}{this answer} Martin-Löf himself confirmed it.}, axiomatizing initial algebras for all single-sorted polynomial endofunctors (in the sense of \cite{Abbott2005}). This disconnect between the constructive theory of initial algebras and the syntactic axiomatization of W-types further aggravates the difficulty of characterising models of type theories that involve them.
 
-\subsection{Homotopy Type Theory}
+\subsubsection{Homotopy Type Theory}
 
 \Gls{mltt} was presented in \cite{MartinLoef1998} as a candidate foundation for constructive mathematics, as an alternative to Zermelo–Fraenkel set theory (see \cite[Introduction]{MartinLoef1998}), and its soundness proof was given exhibiting the syntactic model of the theory, in particular a set-theoretical model. \Gls{mltt} was presented as a constructive set theory (see \cite{Nordstroem1990}), despite its inability to internally assess a principle known as \gls{uip}, the lack of which makes for weaker pattern matching (see \textcite{Cockx2016}). It became evident that this was not just a technical shortcoming, but rather an unforeseen degree of freedom, when \textcite{Hofmann1998} presented the groupoid model of \gls{itt}, ``The first construction of a model in which identity types are non-trivial''\footnote{\url{https://homotopytypetheory.org/references/hofmann-streicher-the-groupoid-interpretation-of-type-theory/}}.
 
 This set forth a research program where models for \gls{itt} were sought in the scope of homotopy theory. This involved interpreting types as homotopy types, taking identity types no longer as being inhabited by equalities between objects but by paths between points, and enriching the type theory with novel constructions called \glspl{hit}, which axiomatize certain non-discrete homotopy types. The novel interpretation of \gls{itt} was called \gls{hott}, its foundations are laid in the ``HoTT Book'' \cite{UnivalentFoundationsProgram2013}.
 
-\section{Project Description}
+\subsection{Problem statement}
 
-It is still not clear how \glspl{hit} interact with inductive definitions. One would like to be able to construct or axiomatize initial algebras for endofunctors involving \glspl{hit}. Consider the two similar definitions in Figure \ref{fig:trdefs}:
+So far, the syntactic rules and semantics for \glspl{hit} have been considered either case by case, or by considering restricted classes of them (see \textcite[Section 1.2]{Kaposi2020}).
+Ideally, one would want a type formation rule, similar to that of W-types, enabling the construction of all or a significant majority of the considered \glspl{hit}, with associated semantics in some models of \gls{mltt}.
+
+A similar result has been achieved for Cubical Type Theory by \textcite{Vezzosi2021}; however, Cubical Type Theory significantly complicates \gls{mltt} by integrating it into a two-level type theory, where the foundational level axiomatizes a model structure for homotopy theory on the category of cubical sets.
+
+The search for general type formation rules for \glsentrylongpl{hit} compatible with plain \gls{itt} is therefore still open.
+
+\section{Projected contributions}
+
+Our intent is to investigate \glsentrylongpl{hit} with both syntactic and semantic methods, their compatibility with \glsentrylong{mltt}, and the categorical models where they can be interpreted.
+
+As an example, consider the two similar definitions in Figure \ref{fig:trdefs}:
 
 \bgroup
 \renewcommand{\lstlistingname}{Definition}
@@ -164,7 +156,9 @@ The second definition is instead given by first defining an endofunctor, \texttt
 
 Among the efforts to construct or give semantics for \glspl{hit} we must surely note the previously mentioned work by \textcite{Weide2019}, which is limited by finitarity and homotopy level, and \textcite{Fiore2022}, whose construction is given for a broader class of definitions, but involves a non-constructive choice-adjacent principle: this renders the construction inconclusive for computational purposes.
 
-Our intent is to investigate constructability of \glsentrylongpl{hit} with the aim of providing constructions for a broader class of them, or relate their admission in \glsentrylong{hott} to non-constructive principles.
+Moreover, as presented by \textcite{Lumsdaine2017}, a promising approach to identify semantics for a broad class of \gls{hit} definitions involves monads and their algebras. This suggests that non-extensional models for \glsentrylong{itt} could be sought with an algebraic approach, diverging from the beaten path of interpretations related to homotopy theory. However, this last one is more of a vague idea than a project, as we do not know how to concretely pursue it.
+
+\todo{Reworked so far}
 
 \section{Activity report}
 
@@ -180,17 +174,17 @@ Our intent is to investigate constructability of \glsentrylongpl{hit} with the a
 
 \subsection{Current work}
 
-\todo[inline]{Inserire tentativi passati di studiare HIT}
+\todo{Inserire tentativi passati di studiare HIT}
 
-\todo[inline]{Il lavoro sul lavoro di Philipp e presentazioni alternative di principi semiclassici}
+\todo{Il lavoro sul lavoro di Philipp e presentazioni alternative di principi semiclassici}
 
 \textcite{Uustalu2017} gave a syntactic characterisation of monad structures on polynomial endofunctors as generated from containers in \cite{Abbott2005}. We are currently studying how this extends to indexed containers as defined in \cite{Altenkirch2015}, whose monoidal structure has not yet been studied extensively. We suspect that understanding such structures can lead to insight over why, for certain \gls{hit}-defined endofunctors, the admission of initial algebras seems to be associated with non-constructive principles. This is due to the fact that indexed W-types, the inductive principles arising from indexed containers, model multi-sorted term algebras.
-\todo[inline]{Più concretamente il lavoro per estendere \cite{Uustalu2017}.}
+\todo{Più concretamente il lavoro per estendere \cite{Uustalu2017}.}
 
 \subsection{Future work}
 
 The scope of \cite{Weide2019} is limited to signatures based on polynomials in the style of \cite{Goldblatt2001}: it begs for a generalization to allow for indexed (finitary) polynomials, as defined in \cite{Altenkirch2015}.
-\todo[inline]{Dettagliare aspettative}
+\todo{Dettagliare aspettative}
 
 \printacronyms
 \printbibliography
