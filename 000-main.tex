@@ -13,6 +13,7 @@
 \usepackage{subfig}
 \author{Michele De Pascalis}
 \title{Midterm Report}
+\date{\today}
 
 \newacronym{itt}{ITT}{Intensional Type Theory}
 \newacronym{mltt}{MLTT}{Martin-Löf Type Theory}
@@ -20,6 +21,8 @@
 \newacronym{uip}{UIP}{Uniqueness of Identity Proofs}
 \newacronym{hit}{HIT}{Higher Inductive Type}
 \newacronym{hott}{HoTT}{Homotopy Type Theory}
+\newacronym{wisc}{WISC}{Weakly Initial Set of Covers}
+\newacronym{llpo}{LLPO}{Lesser Limited Principle of Omniscience}
 
 \makeglossaries
 
@@ -33,9 +36,13 @@
 \begin{document}
 \maketitle
 
-\section*{Abstract}
+\begin{abstract}
+  In the formal theory of programming languages and constructive mathematics, the recent development of \glsentrylong{hott} presented new exciting capabilities of \glsentryshortpl{itt}, a family of dependent type theories. One of the main novelties is the introduction of \glsfirstplural{hit}, allowing to define types modeling not only data structures, but the relationships between pieces of data in such structures. However, at the current state of research, \glsentryshortpl{hit} have to be introduced to the theory \emph{ad hoc}, due to the absence of a syntax for \gls{hit} construction that is both general enough to cover most needs and semantically validated.
 
-\todo{ABSTRACT}
+  In this work, we study \glsentrylongpl{itt} and their inductive principles with both syntactic and semantic means, aiming to extend the state of research on \glsentrylongpl{hit}.
+\end{abstract}
+
+\listoftodos
 
 \section{Introduction}
 
@@ -158,34 +165,35 @@ Among the efforts to construct or give semantics for \glspl{hit} we must surely 
 
 Moreover, as presented by \textcite{Lumsdaine2017}, a promising approach to identify semantics for a broad class of \gls{hit} definitions involves monads and their algebras. This suggests that non-extensional models for \glsentrylong{itt} could be sought with an algebraic approach, diverging from the beaten path of interpretations related to homotopy theory. However, this last one is more of a vague idea than a project, as we do not know how to concretely pursue it.
 
-\todo{Reworked so far}
-
 \section{Activity report}
 
-\subsection{Parallel activities}
+\subsection{Past work}
 
-\begin{itemize}
-	\item I attended "Proof and Computation" graduate school in Munich;
-	\item I spent a week visiting Eric Finster in Birmingham as part of a COST action STSM to get informed on the latest development on dependent type theories and their relation to category theory;
-	\item I started studying "natural models", a modern approach currently employed by \textcite{Awodey2016} for categorical models of dependent type theory;
-	\item In order to approach "algebraic type theory", in the same line of study as natural models, I studied polynomial functors in the formulation of \textcite{Gambino2009};
-	\item I was a TA in the Category Theory course (ITI9200), I cured lab sessions and exams. We experimented with a novel approach for teaching category theory for programming.
-\end{itemize}
+Our work on \glspl{hit} began by trying to construct infinitary Quotient Inductive Types in a \gls{hott} setting, employing a \gls{hit} modeling 1-colimits, and a variation of the construction in \cite{Adamek1974}. We wanted to leave out the assumption of having internal W-types, but this was bound to fail, as it appears that constructing W-types internally for infinitary signatures involves the use of a semiclassical principle called \gls{wisc}, as exemplified in \cite{Fiore2022} and \cite{Pitts2021}.
 
-\subsection{Current work}
+At the same time, \textcite[Theorem 7]{Joram2023} proved that continuity of the Finite Multiset endofunctor (defined using a \gls{hit} in Subsection 3.3) with respect to \(\omega\)-chains implies a non-constructive principle called \gls{llpo}. This encouraged us to spend some time formulating \gls{llpo} using coinductive definitions, in a style similar to \textcite{Capretta2016}. However, both Joram and I shifted interests, so this effort was put aside.
 
-\todo{Inserire tentativi passati di studiare HIT}
+I spent most of the second year studying category theory and categorical models of type theory. This is a very deep subject with a steep learning curve and scarce learning material. In January, as a COST-funded short term scientific mission, I visited Eric Finster in Birmingham, to be informed of the unpublished research on models of \glsentrylong{hott}, to discuss so-called \emph{directed type theory}, and to be informed about his unpublished research on opetopes in type theory\footnote{See e.g. \url{https://www.youtube.com/watch?v=hlCVHVtAlqQ}}. We also touched upon the possibility of characterising the criticalities of endofunctors whose definition uses \glspl{hit}, in constructions such as the one appearing in \cite{Joram2023}, by studying their presentations as monads, or the free monads that arise out of them.
 
-\todo{Il lavoro sul lavoro di Philipp e presentazioni alternative di principi semiclassici}
+After the exchange with Finster, and looking at the current work of \textcite{Awodey2016}, it became apparent that in order to approach the topic of categorical models of type theory in a modern way one needs to study polynomial functors, defined as in \textcite{Gambino2009}.
+
+\subsection{Present Work}
 
 \textcite{Uustalu2017} gave a syntactic characterisation of monad structures on polynomial endofunctors as generated from containers in \cite{Abbott2005}. We are currently studying how this extends to indexed containers as defined in \cite{Altenkirch2015}, whose monoidal structure has not yet been studied extensively. We suspect that understanding such structures can lead to insight over why, for certain \gls{hit}-defined endofunctors, the admission of initial algebras seems to be associated with non-constructive principles. This is due to the fact that indexed W-types, the inductive principles arising from indexed containers, model multi-sorted term algebras.
-\todo{Più concretamente il lavoro per estendere \cite{Uustalu2017}.}
+
+This study is aided by using the Agda theorem prover. We are formalizing the structure of the monoidal category of polynomial endofunctors over a fixed indexing set, in the sense of \cite{Altenkirch2015}. There, we are extracting a synthetic representation of monoid objects, similar to the representation of polynomial monads in \cite[Section 3, definition of \emph{mnd-container}]{Uustalu2017}. The comments after the cited definition hint at the possibility of a more elegant definition, which we hope to elucidate during this study. Lastly, by the fullness and faithfulness exposed in \cite[Proposition 4.1]{Altenkirch2015}, the extracted synthetic representations will correspond exactly to monads on the extensions of indexed containers.
 
 \subsection{Future work}
 
 The scope of \cite{Weide2019} is limited to signatures based on polynomials in the style of \cite{Goldblatt2001}: it begs for a generalization to allow for indexed (finitary) polynomials, as defined in \cite{Altenkirch2015}.
-\todo{Dettagliare aspettative}
+We expect to be able to construct the class of \emph{indexed finitary set-truncated \glspl{hit}}, under the same assumptions as \cite{Weide2019}, without the need to employ \gls{wisc}. Since \cite{Weide2019} is also formalized in a constructive type theory, we shall proceed by paralleling their approach in Agda, adapting the construction to indexed signatures. We have yet to understand whether the cardinality/truncation level of the indexing type will have to be limited, to preserve constructiveness.
 
+\subsection{Other activities}
+
+\begin{itemize}
+	\item I attended "Proof and Computation" graduate school in Munich;
+	\item I was a TA in the Category Theory course (ITI9200), I cured lab sessions and exams. We experimented with a novel approach for teaching category theory for programming.
+\end{itemize}
 \printacronyms
 \printbibliography
 
